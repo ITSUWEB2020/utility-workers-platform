@@ -1,4 +1,4 @@
-# web2021
+# firebase-app
 
 ## Project setup
 ```
