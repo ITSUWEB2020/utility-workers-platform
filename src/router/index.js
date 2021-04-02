@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Resetpass from '../views/Resetpass.vue'
-import Secret from '../views/Secret.vue'
+import Proj from '../components/Proj.vue'
+// import Secret from '../views/Secret.vue'
+import Dashboard from '../views/Dashboard.vue'
 import Project from '../views/Project.vue'
 import  firebase from "firebase/app";
 import "firebase/auth";
@@ -42,10 +44,22 @@ const routes = [
     name: 'Resetpass',
     component: Resetpass
   },
+  // {
+  //   path: '/',
+  //   name: 'Secret',
+  //   component:Secret,
+  //   meta: {requiresAuth: true}
+  // },
   {
     path: '/',
-    name: 'Secret',
-    component:Secret,
+    name: 'Dashboard',
+    component:Dashboard,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/projects',
+    name: 'Proj',
+    component:Proj,
     meta: {requiresAuth: true}
   },
 

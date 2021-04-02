@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <div>
-      <router-link to="/"></router-link>
-    </div>
-    <keep-alive>
+  <secret></secret>
     <router-view/>
-    </keep-alive>
   </div>
 </template>
 
 <script>
-
-
+import secret from './views/Secret.vue';
+export default {
+  components:{
+    secret:secret
+  }
+  
+}
 </script>
 
 <style>
@@ -22,6 +23,7 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display:flex;
   
 }
 body.Register{

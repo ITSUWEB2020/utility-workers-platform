@@ -1,63 +1,39 @@
 <template>
-<div  class="main">
+<div class="main">
     <div>
     <Top-header class="heder"></Top-header>
     </div>
-    <div>
-     <component :is="dynamicComponent"></component>
-    </div>
-    <div class="lheder">
+    
+
+     <div class="lheder">
  <ol class="list">
-        <li><a @click="dynamicComponent='Abou'" ><img src="../assets/Dashboardicon.png"> Dashboard</a></li>
-        <li><a @click="dynamicComponent='Proj'" ><img src="../assets/Projectsicon.png"> Projects</a></li>
-        <li><a @click="dynamicComponent='Calen'"><img src="../assets/Calendaricon.png"> Calendar</a></li>
-        <li><a @click="dynamicComponent='Teams'"><img src="../assets/Teamsicon.png"> Teams</a></li>
-        <li><a @click="dynamicComponent='Memb'"><img src="../assets/Membericon.png"> Members</a></li>
-        <li><a @click="dynamicComponent='Sett'"><img src="../assets/Settingsicon.png"> Settings</a></li>
+        <li><router-link to="/dashboard"><img src="../assets/Dashboardicon.png"> Dashboard</router-link></li>
+        <li><router-link to="/projects"><img src="../assets/Projectsicon.png"> Projects</router-link><li>
+        <li><a ><img src="../assets/Calendaricon.png"> Calendar</a></li>
+        <li><a ><img src="../assets/Teamsicon.png"> Teams</a></li>
+        <li><a ><img src="../assets/Membericon.png"> Members</a></li>
+        <li><a ><img src="../assets/Settingsicon.png"> Settings</a></li>
     </ol>
     </div>
-     <div class="for-small-screens">
- <ol class="listfs">
-        <li><a @click="dynamicComponent='Abou'" ><img src="../assets/Dashboardicon.png"></a></li>
-        <li><a @click="dynamicComponent='Proj'" ><img src="../assets/Projectsicon.png"></a></li>
-        <li><a @click="dynamicComponent='Calen'"><img src="../assets/Calendaricon.png"></a></li>
-        <li><a @click="dynamicComponent='Teams'"><img src="../assets/Teamsicon.png"></a></li>
-        <li><a @click="dynamicComponent='Memb'"><img src="../assets/Membericon.png"></a></li>
-        <li><a @click="dynamicComponent='Sett'"><img src="../assets/Settingsicon.png"></a></li>
-    </ol>
-    </div>
+     
 </div>
 </template>
 
 <script>
-import Calen from '../components/Calen'
-import Memb from '../components/Memb'
-import Proj from '../components/Proj'
-import Sett from '../components/Sett'
-import Teams from '../components/Teams'
-import Dash from '../components/Dash'
-import Maain from '../components/Maain'
+
+// import Maain from '../components/Maain'
 import TopHeader from '../components/Top-header'
-import Abou from '../components/Abou'
     export default {
-         name: 'Secret',
+  name: 'Secret',
   components: {
       
      TopHeader,
-     Maain,
-     Dash,
-     Calen,
-     Memb,
-     Proj,
-     Sett,
-     Abou,
-     Teams
+    //  Maain,
+    
       },    
-      data: function(){
-          return{
-              dynamicComponent: "Maain"
-          }
-      }   
+      
+      
+      
 
     }
 
@@ -68,17 +44,15 @@ import Abou from '../components/Abou'
 
 <style lang="css" scoped>
 .main{
-   position: absolute;
-   width: 100%;
-   height: 722px;
-   right: 0%;
-   top: 0%;
+   
+  /* width:100%; */
+  
 background-color: #ffffff;
 }
 .heder{
     position: absolute;
 width: 16%;
-height: 3em;
+/* height: 3em; */
 left: 0px;
 top: 0px;
 
