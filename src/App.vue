@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-  <secret></secret>
+  <secret  v-show="isLogin == false"></secret>
     <router-view/>
   </div>
 </template>
@@ -10,7 +10,20 @@ import secret from './views/Secret.vue';
 export default {
   components:{
     secret:secret
+  },
+  computed: {
+  isRegister() {
+     return this.$route.name === 'Register'
+  },
+  isReset(){
+         return this.$route.name === 'Resetpass'
+
+  },
+  isLogin(){
+         return this.$route.name === 'Login'
+
   }
+}
   
 }
 </script>
