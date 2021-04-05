@@ -2,8 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+//import Secret from '../views/Secret.vue'
 import Resetpass from '../views/Resetpass.vue'
 import Proj from '../components/Proj.vue'
+import Calen  from '../components/Calen.vue'
+import Teams  from '../components/Teams.vue'
+import Members  from '../components/Memb.vue'
 // import Secret from '../views/Secret.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Project from '../views/Project.vue'
@@ -44,14 +48,14 @@ const routes = [
     name: 'Resetpass',
     component: Resetpass
   },
-  // {
-  //   path: '/',
-  //   name: 'Secret',
-  //   component:Secret,
-  //   meta: {requiresAuth: true}
-  // },
+ // {
+  //  path: '/',
+  //  name: 'Secret',
+  //  component:Secret,
+ //   meta: {requiresAuth: true}
+ //  },
   {
-    path: '/',
+    path: '/dashboard',
     name: 'Dashboard',
     component:Dashboard,
     meta: {requiresAuth: true}
@@ -60,6 +64,24 @@ const routes = [
     path: '/projects',
     name: 'Proj',
     component:Proj,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/calendar',
+    name: 'Calen',
+    component:Calen,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/teams',
+    name: 'teams',
+    component:Teams,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/members',
+    name: 'members',
+    component:Members,
     meta: {requiresAuth: true}
   },
 

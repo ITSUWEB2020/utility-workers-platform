@@ -1,26 +1,39 @@
 <template>
-    <div class="maain">
+    <div class="maain" >
+        <div class="maaain">
       <p class="text1">Teams</p>
       <input type="text" class="tfind" placeholder="       Search team">
       <button type="submit" class="button1"  @click="showModal = true">Add team</button>
       <div>
         <div class="textname">
-
-        <p class="team">Team name</p>
-         <p class="mem">Members</p>
-          <p class="start">Started</p>
-
+             <tr>
+              <td class="td">
+                <p class="name9">Team name</p>
+              </td>
+              <td class="td">
+                <p class="name9">Members</p>
+              </td>
+              <td class="td">
+                <p class="name9">Date</p>
+              </td>
+               <td class="td">
+                <p class="name91">Status</p>
+              </td>
+            
+                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
+              
+            </tr>
         </div>
         <div class="line"></div>
            <div class="teamlist">
  <tr c v-for="team in Teams" :key="team.key">
                         <td class="td1"><p class="name">{{ team.name }}</p></td>
-                        <td class="td2"><p class="name1">{{ team.email }}</p></td>
-                        <td class="td3"><p class="name2">{{ team.phone }}</p></td>
-                         <td class="td5"><p class="name4">{{ team.true }}</p></td>
-                        <td class="td4">
+                        <td class="td1"><p class="name">{{ team.email }}</p></td>
+                        <td class="td1"><p class="name">{{ team.phone }}</p></td>
+                         <td class="td1"><p class="name8">{{ team.true }}</p></td>
+                        <td class="td1">
                             
-                          <p class="name3"><button class="butt1" @click.prevent="deleteUser(team.key)" >Delete</button></p>
+                          <p class="name"><button class="butt1" @click.prevent="deleteUser(team.key)" >Delete</button></p>
                             
                         </td>
  </tr>
@@ -46,6 +59,7 @@
   </div>
 </form>
  </transition>
+ </div>
     </div>
     
 </template>
@@ -55,12 +69,13 @@
 
 
     export default {
+        name: 'teams',
         data() {
             return {
                  showModal: false,
                   Teams: [],
                 team: {
-                    true:'false'
+                    true:'Active'
                 }
             }
         },
@@ -108,6 +123,25 @@
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.maaain {
+  position: absolute;
+  width: 96%;
+  height: 600px;
+  background: #ffffff;
+  left: 2%;
+  top: 13%;
+  border-radius: 10px;
+}
+.name8{
+      position: absolute;
+    left: 5em;
+    
+  width: 6em;
+  border: 2px #34C759 solid;
+  border-radius: 20px;
+  background-color: #34C759;
+  color: white;
+}
 .butt1{
     background: #FFFFFF;
 border: 1px solid #1A1A1A;
@@ -128,6 +162,7 @@ color: #1A1A1A;
 .name{
     position: absolute;
     left: 5em;
+    
 }
 .name1{
     position: absolute;
@@ -145,11 +180,30 @@ color: #1A1A1A;
     position: absolute;
     left: 45em;
 }
+.name9{
+  font-weight: 600;
+}
+.name91{
+  font-weight: 600;
+  padding-left: 2em;
+}
 td{
     max-width: 100%;
-    max-height: 700px;
+    max-height: 900px;
     position: relative;
     padding: 2em;
+    padding-left: 4em;
+    padding-right: 6em;
+
+}
+.td1{
+      max-width: 100%;
+    max-height: 900px;
+    position: relative;
+    padding: 2em;
+    padding-left: 4em;
+    padding-right: 10.3em;
+
 }
 
 .team{
@@ -174,22 +228,27 @@ td{
 }
 
 .textname{
-    position: relative;
-    right: 39%;
-    top: 1em;
+   
+  position: relative;
+   max-height: 40em;
+  top: -6em;
+  width: 60em;
 }
+
 .teamlist{
     position: relative;
-    bottom: 2em;
+    bottom: 9em;
     max-height: 40em;
+   
  
 }
 .maain{
- position: absolute;
-  left:16%;
- width: 84%;
- height: 674px;
- background-color: rgb(252, 252, 252);
+   position: absolute;
+  left: 16%;
+  top:0;
+  width: 84%;
+  height: 722px;
+  background-color: #bfbfbf;
 }
 .teamslist{
     position: relative;
@@ -205,14 +264,26 @@ font-size: 230%;
 line-height: 44px;
 position: relative;
 right: 43%;
-bottom: 3%;
+bottom: 16%;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 600;
+font-size: 36px;
+line-height: 56px;
+/* identical to box height, or 156% */
+
+letter-spacing: 0.04em;
+
+/* Grey/very dark */
+
+color: #4C4C4D;
 }
 .tfind{
     position: relative;
 width: 20%;
 height: 5%;
 right: 38%;
-bottom: 3%;
+bottom: 13%;
 
 background: #FFFFFF;
 border: 1px solid #1A1A1A;
@@ -222,27 +293,28 @@ border-radius: 12px;
 font-style: normal;
 font-weight: 500;
 }
-.button1{
-    position: absolute;
-width: 10%;
-height: 5%;
-left: 87%;
-bottom: 83.8%;
+.button1 {
+  position: absolute;
+  width: 10%;
+  height: 5%;
+  left: 87%;
+  bottom: 83.8%;
   font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-background: #C4C4C4;
-border-radius: 18px;
-border: none;
-cursor: pointer;
+  font-style: normal;
+  font-weight: 500;
+  background: #37b0d9;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
 }
 .line{
     position: absolute;
-width: 100%;
+width: 96%;
 height: 0.1%;
 
-top: 32%;
-
+top: 22%;
+left: 2%;
 background: #B3B3B3;
 border-radius: 1px;
 }

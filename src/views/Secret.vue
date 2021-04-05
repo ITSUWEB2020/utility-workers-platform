@@ -8,11 +8,11 @@
      <div class="lheder">
  <ol class="list">
         <li><router-link to="/dashboard"><img src="../assets/Dashboardicon.png"> Dashboard</router-link></li>
-        <li><router-link to="/projects"><img src="../assets/Projectsicon.png"> Projects</router-link><li>
-        <li><a ><img src="../assets/Calendaricon.png"> Calendar</a></li>
-        <li><a ><img src="../assets/Teamsicon.png"> Teams</a></li>
-        <li><a ><img src="../assets/Membericon.png"> Members</a></li>
-        <li><a ><img src="../assets/Settingsicon.png"> Settings</a></li>
+       <li><router-link to="/projects"><img src="../assets/Projectsicon.png"> Projects</router-link></li>
+        <li><router-link to="/calendar"><img src="../assets/Calendaricon.png"> Calendar</router-link></li>
+        <li><router-link to="/teams"><img src="../assets/Teamsicon.png"> Teams</router-link></li>
+        <li><router-link to="/members"><img src="../assets/Membericon.png"> Members</router-link></li>
+        <li><router-link to="/projects" ><img src="../assets/Settingsicon.png"> Settings</router-link></li>
     </ol>
     </div>
      
@@ -44,7 +44,7 @@ import TopHeader from '../components/Top-header'
 
 <style lang="css" scoped>
 .main{
-   
+
   /* width:100%; */
   
 background-color: #ffffff;

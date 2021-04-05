@@ -1,26 +1,39 @@
 <template>
     <div class="maain">
       <p class="text1">Members</p>
+      <div class="maaain"> 
       <input type="text" class="tfind" placeholder="       Search member">
       <button type="submit" class="button1"  @click="showModal = true">Add Member</button>
       <div>
-        <div class="textname">
-
-        <p class="team">Member name</p>
-         <p class="mem">Role</p>
-          <p class="start">Payment</p>
-
-        </div>
+           <div class="textname">
+             <tr>
+              <td class="td1">
+                <p class="name9">Member name</p>
+              </td>
+              <td class="td1">
+                <p class="name9">Role</p>
+              </td>
+              <td class="td1">
+                <p class="name9">Payment</p>
+              </td>
+               <td class="td1">
+                <p class="name9">Projects</p>
+              </td>
+            
+                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
+              
+            </tr>
+       </div>
         <div class="line"></div>
            <div class="teamlist">
  <tr c v-for="member in Member" :key="member.key">
-                        <td class="td1"><p class="name">{{ member.name }}</p></td>
-                        <td class="td2"><p class="name1">{{ member.role }}</p></td>
-                        <td class="td3"><p class="name2">{{ member.phone }}</p></td>
-                         <td class="td5"><p class="name4">{{ member.true }}</p></td>
-                        <td class="td4">
+                        <td class="td"><p class="name">{{ member.name }}</p></td>
+                        <td class="td"><p class="name">{{ member.role }}</p></td>
+                        <td class="td"><p class="name">{{ member.phone }}</p></td>
+                         <td class="td"><p class="name1">{{ member.true }}</p></td>
+                        <td class="td">
                             
-                          <p class="name3"><button class="butt1" @click.prevent="deleteUser(member.key)" >Delete</button></p>
+                          <p class="name2"><button class="butt1" @click.prevent="deleteUser(member.key)" >Delete</button></p>
                             
                         </td>
  </tr>
@@ -51,7 +64,7 @@
 </form>
  </transition>
     </div>
-    
+    </div>
 </template>
 
 <script>
@@ -68,7 +81,7 @@
                 },
                    Teams:[],
                   team: {
-                    true:'false'
+                    true:'1'
                 },
                  active: false,
             }
@@ -139,6 +152,23 @@ border: 1px solid #1A1A1A;
 box-sizing: border-box;
 border-radius: 12px;
 }
+.td {
+  position: relative;
+  padding: 1%;
+  padding-left: 2em;
+  padding-right: 9em;
+  left: 5%;
+  top: 2em;
+}
+.td1{
+      max-width: 100%;
+    max-height: 900px;
+    position: relative;
+    padding: 2em;
+    padding-left: 4em;
+    padding-right: 6em;
+
+}
 .butt1{
     background: #FFFFFF;
 border: 1px solid #1A1A1A;
@@ -156,25 +186,39 @@ text-align: center;
 color: #1A1A1A;
 
 }
+.maaain {
+  position: absolute;
+  width: 96%;
+  height: 600px;
+  background: #ffffff;
+  left: 2%;
+  top: 14%;
+  border-radius: 10px;
+}
 .name{
-    position: absolute;
-    left: 5em;
+    position: relative;
+    
 }
 .name1{
     position: absolute;
-    left: 18em;
+   right: 4.5em;
 }
 .name2{
     position: absolute;
-    left: 33em;
+   left: 6em;
 }
 .name3{
     position: absolute;
     left: 50em;
 }
-.name4{
-    position: absolute;
-    left: 45em;
+.name9{
+        position: relative;
+
+font-weight: 600;
+
+/* Black/light */
+
+
 }
 td{
     max-width: 100%;
@@ -204,46 +248,53 @@ td{
     width: 100px;
 }
 
-.textname{
-    position: relative;
-    right: 39%;
-    top: 1em;
+.textname {
+  position: relative;
+   max-height: 40em;
+  width: 60em;
 }
 .teamlist{
     position: relative;
-    bottom: 2em;
+    bottom: 3em;
     max-height: 40em;
- 
 }
-.maain{
- position: absolute;
-  left:16%;
- width: 84%;
- height: 674px;
- background-color: rgb(252, 252, 252);
+.maain {
+  position: absolute;
+  left: 16%;
+  top:0;
+  width: 84%;
+  height: 722px;
+  background-color: #bfbfbf;
 }
 .teamslist{
     position: relative;
     max-width: 80em;
     left: 30%;
-    top: 7em;
+    top: 5em;
 }
 .text1{
-     font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 230%;
-line-height: 44px;
-position: relative;
-right: 43%;
-bottom: 3%;
+  position: absolute;
+  left: 1em;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 56px;
+  /* identical to box height, or 156% */
+
+  letter-spacing: 0.04em;
+
+  /* Grey/very dark */
+
+  color: #4c4c4d;
 }
 .tfind{
     position: relative;
 width: 20%;
 height: 5%;
 right: 38%;
-bottom: 3%;
+top: 4%;
 
 background: #FFFFFF;
 border: 1px solid #1A1A1A;
@@ -255,25 +306,26 @@ font-weight: 500;
 }
 .button1{
     position: absolute;
-width: 10%;
-height: 5%;
-left: 87%;
-bottom: 83.8%;
+  width: 10%;
+  height: 5%;
+  left: 87%;
+  bottom: 83.8%;
   font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-background: #C4C4C4;
-border-radius: 18px;
-border: none;
-cursor: pointer;
+  font-style: normal;
+  font-weight: 500;
+  background: #37b0d9;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
 }
 .line{
     position: absolute;
-width: 100%;
+width: 96%;
 height: 0.1%;
 
-top: 32%;
-
+top: 20%;
+left: 2%;
 background: #B3B3B3;
 border-radius: 1px;
 }
