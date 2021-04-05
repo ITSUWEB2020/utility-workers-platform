@@ -1,6 +1,5 @@
 <template>
   <div class="maain">
-    asdkajskdjasodjsaodjoasdjoiasdjo
     {{ $route.params.id }}
     <div c v-for="proj in Projects" :key="proj.key">
       <ul>

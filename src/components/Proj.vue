@@ -8,27 +8,41 @@
       </button>
       <div>
         <div class="textname">
-          <p class="team">Project name</p>
-          <p class="mem">Team</p>
-          <p class="start">Location</p>
-        </div>
+             <tr>
+              <td class="td">
+                <p class="name9">Project name</p>
+              </td>
+              <td class="td">
+                <p class="name9">Team</p>
+              </td>
+              <td class="td">
+                <p class="name9">Location</p>
+              </td>
+               <td class="td">
+                <p class="name9">Status</p>
+              </td>
+            
+                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
+              
+            </tr>
+       </div>
         <div class="line"></div>
         <keep-alive>
           <div class="teamlist">
             <tr c v-for="proj in Projects" :key="proj.key">
-              <td class="td1">
+              <td class="td">
                 <p class="name">{{ proj.name }}</p>
               </td>
-              <td class="td2">
+              <td class="td">
                 <p class="name1">{{ proj.team }}</p>
               </td>
-              <td class="td3">
+              <td class="td">
                 <p class="name2">{{ proj.location }}</p>
               </td>
-              <td class="td5">
-                <p class="name4">{{ proj.true }}</p>
+               <td class="td">
+                <p class="name8">{{ proj.status}}</p>
               </td>
-              <td class="td4">
+              <td class="td">
                 <p class="name3">
                   <button class="butt1" @click.prevent="RoutTo(proj.key)">
                     About
@@ -55,15 +69,15 @@
           <p class="nttext">Create a new Project</p>
 
           <p class="text2">Enter project name:</p>
-          <input type="text" class="inpname" v-model="proj.name" />
+          <input type="text" class="inpname" v-model="projects.projectName" />
           <p class="text3">Executive team:</p>
-          <select class="inpname1" v-model="proj.team">
+          <select class="inpname1" v-model="projects.teamName">
             <option c v-for="team in Teams" :key="team.key">
               <p class="name">{{ team.name }}</p>
             </option>
           </select>
           <p class="text4">Location:</p>
-          <input type="text" class="inpname2" v-model="proj.location" />
+          <input type="text" class="inpname2" v-model="projects.location" />
           <p class="textdate">Start Date:</p>
           <p class="textdateend">End Date:</p>
           <p class="textcat">Category of project</p>
@@ -74,13 +88,13 @@
           <select type="date" class="inppr">
             <option></option>
           </select>
-          <input type="date" class="inpnamedate" v-model="proj.stdate" />
-          <input type="date" class="inpnamedate2" v-model="proj.anddate" />
+          <input type="date" class="inpnamedate" v-model="projects.start" />
+          <input type="date" class="inpnamedate2" v-model="projects.end" />
           <p class="text5">Description:</p>
           <textarea
             type="text"
             class="inpname4"
-            v-model="proj.description"
+            v-model="projects.description"
           ></textarea>
           <a class="button" @click="showModal = false"> Cancel </a>
 
@@ -102,8 +116,8 @@ export default {
       showModal: false,
 
       Projects: [],
-      proj: {
-        true: "false",
+      projects: {
+        status: "inprogress",
       },
       Teams: [],
       team: {
@@ -119,7 +133,7 @@ export default {
         this.Projects.push({
           key: doc.id,
           name: doc.data().projectName,
-
+          status: doc.data().status,
           team: doc.data().teamName,
           description: doc.data().description,
           location: doc.data().location,
@@ -143,14 +157,13 @@ export default {
     onFormSubmit(event) {
       event.preventDefault();
       db.collection("Projects")
-        .add(this.proj)
+        .add(this.projects)
         .then(() => {
           alert("Team successfully created!");
-          this.proj.name = "";
-          this.proj.team = "";
-          this.proj.location = "";
-          this.proj.true = "";
-          this.proj.description = "";
+          this.projects.projectName = "";
+          this.projects.teamName = "";
+          this.projects.location = "";
+          this.projects.description = "";
         })
         .catch((error) => {
           console.log(error);
@@ -159,7 +172,7 @@ export default {
 
     deleteUser(id) {
       if (window.confirm("Do you really want to delete?")) {
-        db.collection("proj")
+        db.collection("Projects")
           .doc(id)
           .delete()
           .then(() => {
@@ -192,6 +205,13 @@ export default {
   left: 2%;
   top: 14%;
   border-radius: 10px;
+}
+.name8{
+  width: 6em;
+  border: 2px #34C759 solid;
+  border-radius: 20px;
+  background-color: #34C759;
+  color: white;
 }
 .Ptext {
   position: absolute;
@@ -271,37 +291,46 @@ export default {
   border-radius: 3px;
 }
 .name {
-  position: absolute;
-  left: 5em;
+  position: relative;
+  
 }
 .name1 {
-  position: absolute;
-  left: 18em;
+  position: relative;
+  
 }
 .name2 {
-  position: absolute;
-  left: 33em;
+  position: relative;
+
 }
 .name3 {
-  position: absolute;
-  left: 30em;
+  position: relative;
+  
 }
 .name4 {
-  position: absolute;
-  left: 45em;
+  position: relative;
+  
+}
+.name9{
+  font-weight: 600;
 }
 td {
-  max-width: 100%;
-  max-height: 700px;
   position: relative;
-  padding: 2em;
+  padding: 1%;
+  padding-left: 2em;
+  padding-right: 7em;
+  left: 7%;
+}
+.td1 {
+  position: relative;
+  left: 60%;
+ 
 }
 
 .team {
+ height: 15px;
+  width: 200px;
   position: relative;
-  height: 10%;
-  right: 1em;
-  top: 2em;
+  top: 1em;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 900;
@@ -316,15 +345,15 @@ td {
   color: #19191a;
 }
 .mem {
+  height: 40px;
+  width: 40px;
   position: relative;
-  left: 16em;
-  bottom: 0.5em;
+  bottom: 1.1em;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 900;
   font-size: 16px;
-  line-height: 28px;
-  /* identical to box height, or 175% */
+
 
   letter-spacing: 0.04em;
 
@@ -333,11 +362,11 @@ td {
   color: #19191a;
 }
 .start {
-  position: relative;
-  left: 73em;
-  bottom: 3.2em;
   height: 30px;
-  width: 100px;
+  position: relative;
+  left: 55%;
+  bottom: 3.5em;
+  width: 40px;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 900;
@@ -354,13 +383,14 @@ td {
 
 .textname {
   position: relative;
-  right: 39%;
-  top: 1em;
+   max-height: 40em;
+  top: 2em;
+  width: 60em;
 }
 .teamlist {
   position: relative;
   max-height: 40em;
-  bottom: 3em;
+  top: 2em;
   right: 20px;
 }
 .maain {

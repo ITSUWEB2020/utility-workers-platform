@@ -1,6 +1,6 @@
 <template>
     <div class="main-header">
-                <h4>Manager</h4>
+                <h4 class="manag">Manager</h4>
                 <button @click="signOut" class="butt"><img class="logout" src="../assets/exit.png"></button>
                 <button @click="signOut" class="for-small-screens"><img class="logout" src="../assets/exit.png"></button>
                 
@@ -46,7 +46,11 @@ import "firebase/auth";
 <style lang="css">
 .main-heder{
   display:flex;
+  margin: 0%;
 
+}
+.manag{
+  color: aliceblue;
 }
 .logout{
   position: absolute;
