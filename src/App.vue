@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-  <secret  v-show="isLogin == false"></secret>
+  <secret  v-if="isLogin == false"></secret>
+  
     <router-view/>
   </div>
 </template>
@@ -20,7 +21,7 @@ export default {
 
   },
   isLogin(){
-         return this.$route.name === 'Login'
+         return this.$route.name === 'Login' || this.$route.name === 'Resetpass' || this.$route.name === 'Register'
 
   }
 }
