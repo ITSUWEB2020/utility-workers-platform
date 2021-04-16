@@ -5,39 +5,42 @@
       <input type="text" class="tfind" placeholder="       Search team">
       <button type="submit" class="button1"  @click="showModal = true">Add team</button>
       <div>
-        <div class="textname">
+        <table class="teamlist1">
              <tr>
-              <td class="td">
+              <td>
                 <p class="name9">Team name</p>
               </td>
-              <td class="td">
-                <p class="name9">Members</p>
+              <td >
+                <p class="name4">Project</p>
               </td>
-              <td class="td">
-                <p class="name9">Date</p>
+              <td>
+                <p class="name5">Members</p>
               </td>
-               <td class="td">
+               <td>
                 <p class="name91">Status</p>
               </td>
+              
             
                 <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
               
             </tr>
-        </div>
+        </table>
         <div class="line"></div>
-           <div class="teamlist">
+           <table class="teamlist">
  <tr c v-for="team in Teams" :key="team.key">
-                        <td class="td1"><p class="name">{{ team.name }}</p></td>
-                        <td class="td1"><p class="name">{{ team.email }}</p></td>
-                        <td class="td1"><p class="name">{{ team.phone }}</p></td>
-                         <td class="td1"><p class="name8">{{ team.true }}</p></td>
-                        <td class="td1">
+                        <td ><p >{{ team.name }}</p></td>
+                        <td ><p >{{ team.Members }}</p></td>
+                        <td ><p>{{ team.phone }}</p></td>
+                         <td ><p >{{ team.true }}</p></td>
+                        <td >
                             
-                          <p class="name"><button class="butt1" @click.prevent="deleteUser(team.key)" >Delete</button></p>
+                          <p > <button class="butt1" @click.prevent="RoutTo(team.key)">
+                    About
+                  </button></p>
                             
                         </td>
  </tr>
-        </div>
+        </table>
       </div>
        <transition name="fade" appear>
   <div class="modal-overlay" v-if="showModal" @click="showModal = false"></div>
@@ -66,7 +69,7 @@
 
 <script>
   import { db } from '../main';
-
+  import routes from "../router/index.js";
 
     export default {
         name: 'teams',
@@ -80,15 +83,14 @@
             }
         },
           created() {
-            db.collection('teams').onSnapshot((snapshotChange) => {
+            db.collection('Team').onSnapshot((snapshotChange) => {
                 this.Teams = [];
                 snapshotChange.forEach((doc) => {
                     this.Teams.push({
                         key: doc.id,
                         name: doc.data().name,
-                        true: doc.data().true,
-                        email: doc.data().email,
-                        phone: doc.data().phone
+                        Members: doc.data().Members
+                        
                     })
                 });
             })
@@ -115,14 +117,51 @@
                     console.error(error);
                 })
               }
-            }
+            },
+            RoutTo(key) {
+        routes.push({
+        name: "team",
+        params: {
+          id: key,
+        },
+      });
+    },
         }
+        
     }
       
 </script>
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.teamlist {
+  position: relative;
+  max-height: 40em;
+  top: -4em;
+  right: 1px;
+}
+.teamlist1 {
+  position: relative;
+  max-height: 10em;
+  top: -4.5em;
+  border-collapse: collapse;
+  width: 76.5%;
+  left: 1em;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    
+}
+
+
+th, td {
+    text-align: center;
+    padding: 8px;
+    width: 20%;
+
+}
 .maaain {
   position: absolute;
   width: 96%;
@@ -172,39 +211,26 @@ color: #1A1A1A;
     position: absolute;
     left: 33em;
 }
-.name3{
-    position: absolute;
-    left: 50em;
+.name5{
+   font-weight: 600;
+    
 }
 .name4{
-    position: absolute;
-    left: 45em;
+    font-weight: 600;
+    
+   
+     
 }
 .name9{
   font-weight: 600;
+  
 }
 .name91{
   font-weight: 600;
-  padding-left: 2em;
+  padding-left: 10%;
 }
-td{
-    max-width: 100%;
-    max-height: 900px;
-    position: relative;
-    padding: 2em;
-    padding-left: 4em;
-    padding-right: 6em;
 
-}
-.td1{
-      max-width: 100%;
-    max-height: 900px;
-    position: relative;
-    padding: 2em;
-    padding-left: 4em;
-    padding-right: 10.3em;
 
-}
 
 .team{
      position: relative;
@@ -235,13 +261,6 @@ td{
   width: 60em;
 }
 
-.teamlist{
-    position: relative;
-    bottom: 9em;
-    max-height: 40em;
-   
- 
-}
 .maain{
    position: absolute;
   left: 16%;
@@ -250,12 +269,7 @@ td{
   height: 722px;
   background-color: #bfbfbf;
 }
-.teamslist{
-    position: relative;
-    max-width: 80em;
-    left: 30%;
-    top: 7em;
-}
+
 .text1{
      font-family: Montserrat;
 font-style: normal;

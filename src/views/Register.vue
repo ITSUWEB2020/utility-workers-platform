@@ -1,6 +1,6 @@
 <template>
   
-       <div>
+       <div class="main">
         <form @submit.prevent="pressed">
             <div class="text">
             <p class="textwelc">Registration</p>
@@ -56,6 +56,10 @@ import "firebase/auth";
 position: relative;
     left: 0%;
     top: 6em;
+}
+.main{
+    position: relative;
+    left: 40%;
 }
 .textwelc{
 

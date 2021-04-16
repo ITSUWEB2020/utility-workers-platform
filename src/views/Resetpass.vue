@@ -1,6 +1,6 @@
 <template>
   
-       <div>
+       <div class="maain">
         <form @submit.prevent="pressed">
             <div class="text">
             <p class="textwelc">Reset Password</p>
@@ -53,6 +53,10 @@ import "firebase/auth";
 position: relative;
     left: 0%;
     top: 6em;
+}
+.maain{
+    position: relative;
+    left: 40%;
 }
 .textwelc{
 

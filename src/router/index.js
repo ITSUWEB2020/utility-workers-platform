@@ -13,6 +13,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Project from '../views/Project.vue'
 import  firebase from "firebase/app";
 import "firebase/auth";
+import TeamsA from '../views/TeamsA.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,18 @@ const routes = [
     path: '/project/:id',
     name: 'project',
     component: Project,
+    meta: {requiresAuth: true},
+    props: true,
+
+    beforeEnter:(to, from, next)=>{
+     
+      next()
+    }
+  },
+  {
+    path: '/team/:id',
+    name: 'team',
+    component: TeamsA,
     meta: {requiresAuth: true},
     props: true,
 

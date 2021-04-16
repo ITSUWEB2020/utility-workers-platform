@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="maain">
         <form @submit.prevent="pressed">
             <div class="text">
             <p class="textwelc">Welcome to App</p>
@@ -50,6 +50,10 @@ import "firebase/auth";
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.maain{
+    position: relative;
+    left: 40%;
+}
 .text{
 position: relative;
     left: 0%;

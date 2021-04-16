@@ -1,6 +1,6 @@
 <template>
     <div class="main-header">
-                <h4 class="manag">Manager</h4>
+                <h4 class="manag">Trackstaff</h4>
                 <button @click="signOut" class="butt"><img class="logout" src="../assets/exit.png"></button>
                 <button @click="signOut" class="for-small-screens"><img class="logout" src="../assets/exit.png"></button>
                 

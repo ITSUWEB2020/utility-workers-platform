@@ -1,76 +1,43 @@
 <template>
-   <div class="maain" >
+   <div class="maain">
+     <div  c v-for="team in Teams" :key="team.key">
+       <p>{{team.name}}</p>
         <div class="maaain">
-            
-      <div class="list" c v-for="proj in Projects" :key="proj.key">
-      <p class="name">{{ proj.name}}</p>
-<ul class="teamtxt">
-  <li> <p >Status:</p></li>
-  <li><p >Team:</p></li>
-  <li><p >Location:</p></li>
-  <li> <p >Start Date:</p></li>
-   <li> <p >End Date:</p></li>
-</ul>
- <ul class="teamtxt1" >
-          <li><p>{{proj.status}}</p></li>
-         <li><p >{{ proj.team}}</p></li>
-         <li><p >{{ proj.location}}</p> </li>
-         <li><p >{{proj.anddate}}</p> </li>
-         <li><p >{{proj.Tasks}}</p> </li>
-      </ul> 
-        
-</div >
-      
-         
-   <button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></div>
+           
         </div>
+        </div>
+   </div>
 </template>
 
 <script>
   import { db } from '../main';
- 
+   
     export default {
          data: function() {
             
             return {  
-                 dynamicComponent: "Maain",
+                
                  showModal: false,
-               
-                  Projects: [],
-                proj: {
-                  
-                    true:'false',
-                    
-                },
                 
                  Teams:[],
                   team: {
-                    true:'false'
+                   
                 },
                  active: false,
             }
         },
     
           created() {
-             this.Projects = [];
-            db.collection('Projects').doc(this.$route.params.id).get().then(doc => {
+            db.collection('Team').doc(this.$route.params.id).get().then(doc => {
               console.log(doc.data())
-                    this.Projects.push({
+                    this.Teams.push({
                         key: doc.id,
-                        name: doc.data().projectName,
-                        status:doc.data().status,
-                        team: doc.data().teamName,
-                        description: doc.data().description,
-                        location: doc.data().location,
-                        stdate: doc.data().stdate,
-                        anddate: doc.data().anddate,
-                        Tasks: doc.data().Tasks,
-                    
-                    
+                        name: doc.data().name,
+                        true: doc.data().true,
+                        email: doc.data().email,
+                        phone: doc.data().phone
+                    })
                 });
-                
-            })
-           
         },
         methods:{
         deleteUser(id){

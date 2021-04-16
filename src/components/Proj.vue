@@ -7,28 +7,29 @@
         Add project
       </button>
       <div>
-        <div class="textname">
+        <table class="teamlist1">
              <tr>
-              <td class="td">
+              <td class="td3">
                 <p class="name9">Project name</p>
               </td>
-              <td class="td">
+              <td class="td3">
                 <p class="name9">Team</p>
               </td>
-              <td class="td">
+              <td class="td3">
                 <p class="name9">Location</p>
               </td>
-               <td class="td">
+               <td class="td3">
                 <p class="name9">Status</p>
               </td>
+              
             
                 <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-              
+        
             </tr>
-       </div>
+       </table>
         <div class="line"></div>
         <keep-alive>
-          <div class="teamlist">
+          <table class="teamlist">
             <tr c v-for="proj in Projects" :key="proj.key">
               <td class="td">
                 <p class="name">{{ proj.name }}</p>
@@ -51,7 +52,7 @@
                 <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
               </td>
             </tr>
-          </div>
+          </table>
         </keep-alive>
       </div>
     </div>
@@ -306,25 +307,30 @@ export default {
   position: relative;
   
 }
-.name4 {
-  position: relative;
-  
-}
+
 .name9{
   font-weight: 600;
 }
-td {
-  position: relative;
-  padding: 1%;
-  padding-left: 2em;
-  padding-right: 7em;
-  left: 7%;
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    
 }
-.td1 {
-  position: relative;
-  left: 60%;
- 
+.teamlist1 {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 70%;
+    left: -1em;
+    
 }
+
+th, td {
+    text-align: center;
+    padding: 8px;
+
+}
+
 
 .team {
  height: 15px;
@@ -392,6 +398,12 @@ td {
   max-height: 40em;
   top: 2em;
   right: 20px;
+}
+.teamlist1 {
+  position: relative;
+  max-height: 40em;
+  top: 2em;
+  right: 100px;
 }
 .maain {
   position: absolute;
