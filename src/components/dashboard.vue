@@ -8,7 +8,8 @@
   import { db } from '../main';
    
     export default {
-         data: function() {
+         name:'dash',
+         data() {
             
             return {  
                 

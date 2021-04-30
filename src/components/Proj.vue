@@ -10,13 +10,13 @@
         <table class="teamlist1">
              <tr>
               <td class="td3">
-                <p class="name9">Project name</p>
+                <p class="name9">Member name</p>
               </td>
               <td class="td3">
-                <p class="name9">Team</p>
+                <p class="name9">Role</p>
               </td>
               <td class="td3">
-                <p class="name9">Location</p>
+                <p class="name9">Payment</p>
               </td>
                <td class="td3">
                 <p class="name9">Status</p>
@@ -197,6 +197,56 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.table_dark {
+  position: relative;
+  width: 100%;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  background: #ffffff;
+  margin: 10px;
+}
+.table_dark th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #000000;
+  padding: 12px 5em;
+  font-family: Montserrat;
+}
+.table_dark td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #000000;
+  padding: 20px 5em;
+}
+.table_dark tr:last-child td {
+  border-bottom: none;
+}
+.table_dark td:last-child {
+  border-right: none;
+}
+.table_dark tr:hover td {
+  text-decoration: underline;
+}
+
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 .maaain {
   position: absolute;
@@ -410,8 +460,10 @@ th, td {
   left: 16%;
   top:0;
   width: 84%;
-  height: 722px;
+  height: 100%;
   background-color: #bfbfbf;
+  background-size: 100%;
+  overflow: auto;
 }
 .teamslist {
   position: relative;

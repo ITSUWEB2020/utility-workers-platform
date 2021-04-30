@@ -263,8 +263,9 @@ td{
   left: 16%;
   top:0;
   width: 84%;
-  height: 722px;
+  height: 100%;
   background-color: #bfbfbf;
+  background-size: cover;
 }
 .teamslist{
     position: relative;

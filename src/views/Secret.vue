@@ -1,21 +1,17 @@
 <template>
-<div class="main">
-    <div>
-    <Top-header class="heder"></Top-header>
-    </div>
-    
 
+<div class="main">
      <div class="lheder">
+       <Top-header class="heder"></Top-header>
  <ol class="list">
-        <li><router-link to="/dashboard"><img src="../assets/Dashboardicon.png"> Dashboard</router-link></li>
-       <li><router-link to="/projects"><img src="../assets/Projectsicon.png"> Projects</router-link></li>
+        <li><router-link to="/dash"><img src="../assets/Dashboardicon.png"> Dashboard</router-link></li>
+        <li><router-link to="/projects"><img src="../assets/Projectsicon.png"> Projects</router-link></li>
         <li><router-link to="/calendar"><img src="../assets/Calendaricon.png"> Calendar</router-link></li>
         <li><router-link to="/teams"><img src="../assets/Teamsicon.png"> Teams</router-link></li>
         <li><router-link to="/members"><img src="../assets/Membericon.png"> Members</router-link></li>
-        <li><router-link to="/projects" ><img src="../assets/Settingsicon.png"> Settings</router-link></li>
+        <li><router-link to="/dash" ><img src="../assets/Settingsicon.png"> Settings</router-link></li>
     </ol>
     </div>
-     
 </div>
 </template>
 
@@ -44,16 +40,16 @@ import TopHeader from '../components/Top-header'
 
 <style lang="css" scoped>
 .main{
-
+height: 100%;
   /* width:100%; */
   
 background-color: #ffffff;
 }
 .heder{
     position: absolute;
-width: 16%;
+width: 100%;
 /* height: 3em; */
-left: 0px;
+
 top: 0px;
 
 background:  #31758C;
@@ -68,34 +64,27 @@ top: 48px;
 background: #d33f3f;
 }
 .lheder{
-    position: absolute;
-width: 16%;
-height: 674px;
-left: 0px;
-top: 48px;
-
-background:#31758C;
-
+  position: absolute;
+  width: 16%;
+  top:0;
+  left: 0;
+  height: 100%;
+  background-size: cover;
+  background:#31758C;
+  
 }
+
 .for-small-screens{
     position: absolute;
 width: 16%;
-height: 674px;
+height: 100%;
 left: 0px;
 top: 48px;
+background-size: cover;
 
 background: #CCCCCC
 }
-.rheder{
-  position: absolute;
-width: 20%;
-height: 674px;
-left: 1000px;
-top: 48px;
 
-
-background: #1b1ea7;
-}
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 .list{
     position: relative;

@@ -1,10 +1,37 @@
 <template>
    <div class="maain">
      <div  c v-for="team in Teams" :key="team.key">
-       <p>{{team.name}}</p>
+       <p class="Tname">{{team.name}}</p>
         <div class="maaain">
+          <button type="submit" class="button1" @click="showModal = true">
+        Add project
+          </button>
+            <table class="teamlist1">
+             <tr>
+              <td class="td3">
+                <p class="name9">Project name</p>
+              </td>
+              <td class="td3">
+                <p class="name9">Team</p>
+              </td>
+              <td class="td3">
+                <p class="name9">Location</p>
+              </td>
+               <td class="td3">
+                <p class="name9">Status</p>
+              </td>
+              
+            
+                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
+        
+            </tr>
+       </table>
+        <div class="line"></div>
+        </div>
+          <div class="main">
            
         </div>
+
         </div>
    </div>
 </template>
@@ -23,21 +50,39 @@
                   team: {
                    
                 },
+                 
+                 Members:[],
+                  member: {
+                   
+                },
                  active: false,
             }
         },
     
           created() {
+            
             db.collection('Team').doc(this.$route.params.id).get().then(doc => {
               console.log(doc.data())
                     this.Teams.push({
                         key: doc.id,
-                        name: doc.data().name,
-                        true: doc.data().true,
-                        email: doc.data().email,
-                        phone: doc.data().phone
                     })
                 });
+
+       db.collection("Members")
+      .where('id', '==', '0odomYYsJ3bhJ5QsaZJh2BgF96G2')
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+           console.log(doc.id, ' => ', doc.data());
+        
+        })
+      })
+      /*     db.collection("Members").onSnapshot((snapshotChange) => {
+        this.Members = [];
+        snapshotChange.forEach((doc) => {
+           console.log(doc.data())
+        });
+      }); */
         },
         methods:{
         deleteUser(id){
@@ -63,14 +108,74 @@
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 .maaain {
-  display: flex;
-  position: relative;
+  position:absolute;
   width: 96%;
-  height: 650px;
+  height: 55%;
   background: #ffffff;
   left: 2%;
-  top: 5%;
+  top: 15%;
   border-radius: 10px;
+}
+.line {
+  position: absolute;
+  left: 2em;
+  width: 96%;
+  height: 0.1%;
+
+  top: 23%;
+
+  background: #b3b3b3;
+  border-radius: 1px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 71%;
+    
+}
+.teamlist1 {
+  position: relative;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 80%;
+    left: -1em;
+    top: 9%;
+    
+}
+.name9{
+  font-weight: 600;
+  font-family: Montserrat;
+}
+th, td {
+    text-align: center;
+    padding: 8px;
+
+}
+.main {
+  position:absolute;
+  width: 96%;
+  height: 40%;
+  background: #ffffff;
+  left: 2%;
+  top: 75%;
+  border-radius: 10px;
+}
+.Tname{
+  position: relative;
+  right: 42%;
+  font-family: Montserrat;
+font-style: normal;
+font-weight: 550;
+font-size: 36px;
+line-height: 56px;
+/* identical to box height, or 156% */
+
+letter-spacing: 0.04em;
+
+/* Grey/very dark */
+
+color: #4C4C4D;
+
 }
 .list{
   position: relative;
@@ -136,8 +241,10 @@ letter-spacing: 0.04em;
   left: 16%;
   top:0;
   width: 84%;
-  height: 722px;
+  height: 100%;
   background-color: #bfbfbf;
+  background-size: 100%;
+  overflow: auto;
 }
 .name{
     width: 10em;
@@ -211,5 +318,33 @@ text-decoration-line: underline;
  width: 10em;
 color: #1A1A1A;
 
+}
+.button1 {
+  position: absolute;
+  width: 10%;
+  height: 7%;
+  left: 88%;
+  bottom: 88%;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  background: #37b0d9;
+  border-radius: 18px;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+}
+h1 {
+  color: #222;
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #666;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 15px;
 }
 </style>

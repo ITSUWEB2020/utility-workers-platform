@@ -26,7 +26,7 @@
             </tr>
         </table>
         <div class="line"></div>
-           <table class="teamlist">
+           <table class="teamlist" >
  <tr c v-for="team in Teams" :key="team.key">
                         <td ><p >{{ team.name }}</p></td>
                         <td ><p >{{ team.Members }}</p></td>
@@ -77,9 +77,8 @@
             return {
                  showModal: false,
                   Teams: [],
-                team: {
-                    true:'Active'
-                }
+                  Members: [],
+               
             }
         },
           created() {
@@ -93,8 +92,19 @@
                         
                     })
                 });
+            }),
+            db.collection('Members').onSnapshot((snapshotChange) => {
+                this.Members = [];
+                snapshotChange.forEach((doc) => {
+                    this.Members.push({
+                        key: doc.id,
+                        name: doc.data().name,
+                        
+                    })
+                });
             })
         },
+        
         methods: {
             onFormSubmit(event) {
                 event.preventDefault()
@@ -161,6 +171,12 @@ th, td {
     padding: 8px;
     width: 20%;
 
+}
+.teamslist {
+  position: relative;
+  max-width: 80em;
+  left: 30%;
+  top: 7em;
 }
 .maaain {
   position: absolute;

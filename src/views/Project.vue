@@ -15,27 +15,49 @@
           <li><p>{{proj.status}}</p></li>
          <li><p >{{ proj.team}}</p></li>
          <li><p >{{ proj.location}}</p> </li>
-         <li><p >{{proj.anddate}}</p> </li>
-         <li><p >{{proj.Tasks}}</p> </li>
+         <li><p >{{proj.startDate}}</p> </li>
+         <li><p >{{Tasks.end}}</p> </li>
       </ul> 
         
 </div >
       
          
    <button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></div>
+    <div class="maaain1">
+
+        <table class="table_dark">
+  <tr>
+    <th>Team</th>
+    <th>Time</th>
+    <th>Duratioon</th>
+    <th>Notes</th>
+    </tr>
+  <tr  c v-for="task in Tasks" :key="task.key">
+    <td>{{task.name}}</td>
+    <td>{{task.start}}</td>
+    <td>{{task.end}}</td>
+    <td>{{task.description}}</td>
+    </tr>
+  </table>
+
+
         </div>
+   </div>
 </template>
 
 <script>
   import { db } from '../main';
- 
+
     export default {
          data: function() {
             
             return {  
                  dynamicComponent: "Maain",
                  showModal: false,
-               
+                  Tasks: [],
+                   task:{
+
+                   },
                   Projects: [],
                 proj: {
                   
@@ -50,9 +72,10 @@
                  active: false,
             }
         },
-    
+
           created() {
              this.Projects = [];
+             this.Tasks = [];
             db.collection('Projects').doc(this.$route.params.id).get().then(doc => {
               console.log(doc.data())
                     this.Projects.push({
@@ -65,14 +88,34 @@
                         stdate: doc.data().stdate,
                         anddate: doc.data().anddate,
                         Tasks: doc.data().Tasks,
-                    
-                    
+                        startDate: doc.data().startDate.toDate(),
+                        
+  
                 });
-                
-            })
-           
-        },
+               
+  
+            }),
+
+         db.collection("Projects")
+      .doc(this.$route.params.id)
+      .collection("Tasks")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          console.log(doc.data())
+          this.Tasks.push({
+          key: doc.id,
+           description: doc.data().description,
+           name: doc.data().name,
+           start: doc.data().start.toDate(),
+           end: doc.data().end.toDate(),
+          });
+        })
+      })
+          },
+        
         methods:{
+          
         deleteUser(id){
               if (window.confirm("Do you really want to delete?")) {
                 db.collection("proj").doc(id).delete().then(() => {
@@ -95,14 +138,81 @@
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.table_dark {
+  position: relative;
+  width: 100%;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  background: #ffffff;
+  margin: 10px;
+}
+.table_dark th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #000000;
+  padding: 12px 5em;
+  font-family: Montserrat;
+}
+.table_dark td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #000000;
+  padding: 20px 5em;
+}
+.table_dark tr:last-child td {
+  border-bottom: none;
+}
+.table_dark td:last-child {
+  border-right: none;
+}
+.table_dark tr:hover td {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
 .maaain {
   display: flex;
   position: relative;
   width: 96%;
-  height: 650px;
+  height: 58%;
   background: #ffffff;
   left: 2%;
   top: 5%;
+  border-radius: 10px;
+}
+.maaain1 {
+  display: flex;
+  position: relative;
+  width: 96%;
+  height: 50%;
+  background: #ffffff;
+  left: 2%;
+  top: 12%;
   border-radius: 10px;
 }
 .list{
@@ -169,8 +279,10 @@ letter-spacing: 0.04em;
   left: 16%;
   top:0;
   width: 84%;
-  height: 722px;
+  height: 100%;
   background-color: #bfbfbf;
+  background-size: 100%;
+  overflow: auto;
 }
 .name{
     width: 10em;

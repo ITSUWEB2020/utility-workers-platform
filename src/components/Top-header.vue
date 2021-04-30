@@ -1,6 +1,6 @@
 <template>
     <div class="main-header">
-                <h4 class="manag">Trackstaff</h4>
+                <p class="manag"><img class="imgg" src="../assets/Tts.png"></p>
                 <button @click="signOut" class="butt"><img class="logout" src="../assets/exit.png"></button>
                 <button @click="signOut" class="for-small-screens"><img class="logout" src="../assets/exit.png"></button>
                 
@@ -44,18 +44,21 @@ import "firebase/auth";
 </script>
 
 <style lang="css">
-.main-heder{
-  display:flex;
-  margin: 0%;
-
+.imgg{
+  position: relative;
+  right: 5%;
+  width: 55%;
+  height: 30%;
+  bottom: 10px;
 }
 .manag{
   color: aliceblue;
+  margin-left: 2%;
 }
 .logout{
   position: absolute;
   top: -5%;
-  left: 15%;
+  left: 70%;
   width: 30px;
   height: auto;
 }

@@ -9,7 +9,7 @@ import Calen  from '../components/Calen.vue'
 import Teams  from '../components/Teams.vue'
 import Members  from '../components/Memb.vue'
 // import Secret from '../views/Secret.vue'
-import Dashboard from '../views/Dashboard.vue'
+import dashboard  from '../components/dashboard.vue'
 import Project from '../views/Project.vue'
 import  firebase from "firebase/app";
 import "firebase/auth";
@@ -67,16 +67,17 @@ const routes = [
   //  component:Secret,
  //   meta: {requiresAuth: true}
  //  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component:Dashboard,
-    meta: {requiresAuth: true}
-  },
+
   {
     path: '/projects',
     name: 'Proj',
     component:Proj,
+    meta: {requiresAuth: true}
+  },
+  {
+    path: '/dash',
+    name: 'dash',
+    component:dashboard,
     meta: {requiresAuth: true}
   },
   {

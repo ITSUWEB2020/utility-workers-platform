@@ -45,5 +45,6 @@ firebase.auth().onAuthStateChanged(user => {
     }).$mount('#app')
     
   }
+
 })
 
