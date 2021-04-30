@@ -1,114 +1,98 @@
 <template>
-   <div class="maain">
-     <div  c v-for="team in Teams" :key="team.key">
-       <p class="Tname">{{team.name}}</p>
-        <div class="maaain">
-          <button type="submit" class="button1" @click="showModal = true">
-        Add project
-          </button>
-            <table class="teamlist1">
-             <tr>
-              <td class="td3">
-                <p class="name9">Project name</p>
-              </td>
-              <td class="td3">
-                <p class="name9">Team</p>
-              </td>
-              <td class="td3">
-                <p class="name9">Location</p>
-              </td>
-               <td class="td3">
-                <p class="name9">Status</p>
-              </td>
-              
-            
-                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-        
-            </tr>
-       </table>
-        <div class="line"></div>
-        </div>
-          <div class="main">
-           
-        </div>
+  <div class="maain">
+    <div c v-for="team in Teams" :key="team.key">
+      <p class="Tname">{{ team.name }}</p>
+      <div class="maaain">
+        <button type="submit" class="button1" @click="showModal = true">
+          Add project
+        </button>
+        <table class="teamlist1">
+          <tr>
+            <td class="td3">
+              <p class="name9">Project name</p>
+            </td>
+            <td class="td3">
+              <p class="name9">Team</p>
+            </td>
+            <td class="td3">
+              <p class="name9">Location</p>
+            </td>
+            <td class="td3">
+              <p class="name9">Status</p>
+            </td>
 
-        </div>
-   </div>
+            <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
+          </tr>
+        </table>
+        <div class="line"></div>
+      </div>
+      <div class="main"></div>
+    </div>
+  </div>
 </template>
 
 <script>
-  import { db } from '../main';
-   
-    export default {
-         data: function() {
-            
-            return {  
-                
-                 showModal: false,
-                
-                 Teams:[],
-                  team: {
-                   
-                },
-                 
-                 Members:[],
-                  member: {
-                   
-                },
-                 active: false,
-            }
-        },
-    
-          created() {
-            
-            db.collection('Team').doc(this.$route.params.id).get().then(doc => {
-              console.log(doc.data())
-                    this.Teams.push({
-                        key: doc.id,
-                    })
-                });
+import { db } from "../main";
 
-       db.collection("Members")
-      .where('id', '==', '0odomYYsJ3bhJ5QsaZJh2BgF96G2')
+export default {
+  data: function () {
+    return {
+      showModal: false,
+
+      Teams: [],
+      team: {},
+
+      membersId: [],
+      members: [],
+      active: false,
+    };
+  },
+
+  created() {
+    db.collection("Team")
+      .doc(this.$route.params.id)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-           console.log(doc.id, ' => ', doc.data());
-        
-        })
+      .then((doc) => {
+        console.log("Team Data", doc.data());
+        this.membersId = doc.data().Members;
       })
-      /*     db.collection("Members").onSnapshot((snapshotChange) => {
-        this.Members = [];
-        snapshotChange.forEach((doc) => {
-           console.log(doc.data())
+      .finally(() => {
+        this.membersId.forEach((a) => {
+          db.collection("Members")
+            .doc(a)
+            .get()
+            .then((data) => {
+              this.members.push(data.data());
+            });
         });
-      }); */
-        },
-        methods:{
-        deleteUser(id){
-              if (window.confirm("Do you really want to delete?")) {
-                db.collection("proj").doc(id).delete().then(() => {
-                    console.log("Document deleted!");
-               
-                    this.$router.replace({name:"Secret"})
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-              }
-        }
-        
-      
-    }
-    }
+      });
+
     
-      
+  },
+  methods: {
+    deleteUser(id) {
+      if (window.confirm("Do you really want to delete?")) {
+        db.collection("proj")
+          .doc(id)
+          .delete()
+          .then(() => {
+            console.log("Document deleted!");
+
+            this.$router.replace({ name: "Secret" });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    },
+  },
+};
 </script>
 
 <style lang="css" scoped>
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 .maaain {
-  position:absolute;
+  position: absolute;
   width: 96%;
   height: 55%;
   background: #ffffff;
@@ -128,31 +112,29 @@
   border-radius: 1px;
 }
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 71%;
-    
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 71%;
 }
 .teamlist1 {
   position: relative;
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 80%;
-    left: -1em;
-    top: 9%;
-    
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 80%;
+  left: -1em;
+  top: 9%;
 }
-.name9{
+.name9 {
   font-weight: 600;
   font-family: Montserrat;
 }
-th, td {
-    text-align: center;
-    padding: 8px;
-
+th,
+td {
+  text-align: center;
+  padding: 8px;
 }
 .main {
-  position:absolute;
+  position: absolute;
   width: 96%;
   height: 40%;
   background: #ffffff;
@@ -160,164 +142,154 @@ th, td {
   top: 75%;
   border-radius: 10px;
 }
-.Tname{
+.Tname {
   position: relative;
   right: 42%;
   font-family: Montserrat;
-font-style: normal;
-font-weight: 550;
-font-size: 36px;
-line-height: 56px;
-/* identical to box height, or 156% */
+  font-style: normal;
+  font-weight: 550;
+  font-size: 36px;
+  line-height: 56px;
+  /* identical to box height, or 156% */
 
-letter-spacing: 0.04em;
+  letter-spacing: 0.04em;
 
-/* Grey/very dark */
+  /* Grey/very dark */
 
-color: #4C4C4D;
-
+  color: #4c4c4d;
 }
-.list{
+.list {
   position: relative;
   left: 19%;
   width: 10em;
 }
-.map{
+.map {
   position: relative;
   left: 42%;
   bottom: 65%;
 }
-.butt1{
+.butt1 {
   position: relative;
   width: 158px;
-height: 36px;
-left: 40%;
-bottom: 30em;
+  height: 36px;
+  left: 40%;
+  bottom: 30em;
 
-background: #FFFFFF;
-border: 1px solid #1A1A1A;
-box-sizing: border-box;
-border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #1a1a1a;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
-ul{
-  
+ul {
   list-style: none;
-
 }
-.teamtxt{
-position: relative;
-right: 15em;
-top: 3em;
-width: 10em;
-font-family: Montserrat;
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 24px;
-/* identical to box height, or 150% */
-
-letter-spacing: 0.04em;
-
-/* Black/light */
-
-color: #19191A;
-}
-.teamtxt1{
+.teamtxt {
   position: relative;
- right: 7em;
- bottom: 9.5em;
-font-family: Montserrat;
-font-style: normal;
+  right: 15em;
+  top: 3em;
+  width: 10em;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
 
-font-size: 16px;
-line-height: 24px;
-/* identical to box height, or 150% */
+  letter-spacing: 0.04em;
 
-letter-spacing: 0.04em;
+  /* Black/light */
 
+  color: #19191a;
+}
+.teamtxt1 {
+  position: relative;
+  right: 7em;
+  bottom: 9.5em;
+  font-family: Montserrat;
+  font-style: normal;
+
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  letter-spacing: 0.04em;
 }
 .maain {
   position: absolute;
   left: 16%;
-  top:0;
+  top: 0;
   width: 84%;
   height: 100%;
   background-color: #bfbfbf;
   background-size: 100%;
   overflow: auto;
 }
-.name{
-    width: 10em;
-position: relative;
-font-family: Montserrat;
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-
-color: #1A1A1A;
-
-}
-.team{
-   width: 10em;
- position: relative;
-left: -15%;
-bottom: 13.6em;
-  font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
-text-decoration-line: underline;
-
-color: #1A1A1A;
-
-}
-.team2{
-position: relative;
-left: -14%;
-top: -15.6em;
-  font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
-text-decoration-line: underline;
- width: 10em;
-color: #1A1A1A;
-
-}
-.stdate{
+.name {
+  width: 10em;
   position: relative;
-left: -15%;
-bottom: 18.4em;
   font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
-text-decoration-line: underline;
- width: 10em;
-color: #1A1A1A;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
 
+  color: #1a1a1a;
 }
-.enddate{
-  
-left: -30%;
-top: 15px;
+.team {
+  width: 10em;
+  position: relative;
+  left: -15%;
+  bottom: 13.6em;
   font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
-text-decoration-line: underline;
- width: 10em;
-color: #1A1A1A;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-decoration-line: underline;
 
+  color: #1a1a1a;
+}
+.team2 {
+  position: relative;
+  left: -14%;
+  top: -15.6em;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-decoration-line: underline;
+  width: 10em;
+  color: #1a1a1a;
+}
+.stdate {
+  position: relative;
+  left: -15%;
+  bottom: 18.4em;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-decoration-line: underline;
+  width: 10em;
+  color: #1a1a1a;
+}
+.enddate {
+  left: -30%;
+  top: 15px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  text-decoration-line: underline;
+  width: 10em;
+  color: #1a1a1a;
 }
 .button1 {
   position: absolute;

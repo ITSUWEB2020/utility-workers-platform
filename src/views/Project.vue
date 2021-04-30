@@ -47,7 +47,7 @@
 
 <script>
   import { db } from '../main';
-
+import moment from 'moment';
     export default {
          data: function() {
             
@@ -88,7 +88,7 @@
                         stdate: doc.data().stdate,
                         anddate: doc.data().anddate,
                         Tasks: doc.data().Tasks,
-                        startDate: doc.data().startDate.toDate(),
+                        startDate: moment(doc.data().startDate.seconds).format("YYYY MM DD HH:mm"),
                         
   
                 });
@@ -107,8 +107,8 @@
           key: doc.id,
            description: doc.data().description,
            name: doc.data().name,
-           start: doc.data().start.toDate(),
-           end: doc.data().end.toDate(),
+           start:moment(doc.data().start.seconds).format("YYYY MM DD HH:mm"),
+           end:moment(doc.data().end.seconds).format("YYYY MM DD HH:mm")
           });
         })
       })
