@@ -4,40 +4,25 @@
       <div class="maaain"> 
       <input type="text" class="tfind" placeholder="       Search member">
       <button type="submit" class="button1"  @click="showModal = true">Add Member</button>
-      <div>
-           <div class="textname">
-             <tr>
-              <td class="td1">
-                <p class="name9">Member name</p>
-              </td>
-              <td class="td1">
-                <p class="name9">Role</p>
-              </td>
-              <td class="td1">
-                <p class="name9">Payment</p>
-              </td>
-               <td class="td1">
-                <p class="name9">Projects</p>
-              </td>
-            
-                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-              
-            </tr>
-       </div>
-        <div class="line"></div>
-           <div class="teamlist">
- <tr c v-for="member in Member" :key="member.key">
-                        <td class="td"><p class="name">{{ member.name }}</p></td>
-                        <td class="td"><p class="name">{{ member.role }}</p></td>
-                        <td class="td"><p class="name">{{ member.phone }}</p></td>
-                         <td class="td"><p class="name1">{{ member.true }}</p></td>
-                        <td class="td">
-                            
-                          <p class="name2"><button class="butt1" @click.prevent="deleteUser(member.key)" >Delete</button></p>
-                            
-                        </td>
- </tr>
-        </div>
+             <table class="table_dark2">
+  <tr>
+    <th>Name</th>
+    <th>Team</th>
+    <th>Role</th>
+    <th>Payment</th>
+    <th></th>
+
+    </tr>
+  <tr v-for="member in members" :key="member.key" >
+    <td>{{ member.name }}</td>
+    <td>{{ teamName }}</td>
+    <td>{{ member.role }}</td>
+    <td>{{ member.payment }}$/h</td>
+    <td> <button class="butt1" @click.prevent="RoutTo(memb.key)">
+                    About
+                  </button></td>
+    </tr>
+  </table>
       </div>
        <transition name="fade" appear>
   <div class="modal-overlay" v-if="showModal" @click="showModal = false"></div>
@@ -64,7 +49,7 @@
 </form>
  </transition>
     </div>
-    </div>
+    
 </template>
 
 <script>
@@ -75,40 +60,67 @@
         data() {
             return {
                  showModal: false,
-                  Member: [],
-                member: {
-                    true:'false'
-                },
-                   Teams:[],
-                  team: {
-                    true:'1'
-                },
-                 active: false,
+                  Teams: [],
+      team: {},
+      
+      teamName: null,
+      projects: [],
+      projectId:[],
+      project:{
+
+      },
+      membersId: [],
+      members: [],
+      member:{
+
+      }
+                 
             }
         },
           created() {
-            db.collection('members').onSnapshot((snapshotChange) => {
+            /* db.collection('Members').onSnapshot((snapshotChange) => {
                 this.Member = [];
                 snapshotChange.forEach((doc) => {
                     this.Member.push({
                         key: doc.id,
                         name: doc.data().name,
-                        true: doc.data().true,
-                        email: doc.data().email,
-                        phone: doc.data().phone,
+                        status: doc.data().status,
+                        payment: doc.data().payment,
+                        team: doc.data().team,
                         role: doc.data().role
                     })
                 });
-            }),
-              db.collection('teams').onSnapshot((snapshotChange) => {
-                this.Teams = [];
-               snapshotChange.forEach((doc) => {
-                    this.Teams.push({
+            }) */
+              db.collection("Team")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+           console.log("Team Data", doc.data());
+        this.membersId = doc.data().Members;
+        this.teamName = doc.data().name
+        this.Teams.push({
                         key: doc.id,
                         name: doc.data().name,
+                        Members: doc.data().Members
                     })
-                });
-            })
+        });
+    }).finally(() => {
+        this.membersId.forEach((a) => {
+          db.collection("Members")
+            .doc(a)
+            .get()
+            .then((data) => {
+              this.members.push({
+                 key: data.id,
+                        name: data.data().name,
+                        status: data.data().status,
+                        payment: data.data().payment,
+                        team: data.data().team,
+                        role: data.data().role
+             } );
+            });
+        });
+      }); 
         },
         methods: {
             onFormSubmit(event) {
@@ -141,6 +153,56 @@
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.table_dark2 {
+  position: relative;
+  width: 99%;
+  top: 3em;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  
+  margin: 5px;
+}
+.table_dark2 th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 5.4%;
+  font-family: Montserrat;
+}
+.table_dark2 td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 21px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+font-weight: 100;
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+   padding: 1.5% 5.4%;
+}
+.table_dark2 tr:last-child td {
+  border-bottom: none;
+}
+.table_dark2 td:last-child {
+  border-right: none;
+}
+.table_dark2 tr:hover td {
+  text-decoration: underline;
+}
 .inpname3{
       position: absolute;
 width: 43%;

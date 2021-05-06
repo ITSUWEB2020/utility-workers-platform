@@ -13,10 +13,10 @@
 </ul>
  <ul class="teamtxt1" >
           <li><p>{{proj.status}}</p></li>
-         <li><p >{{ proj.team}}</p></li>
-         <li><p >{{ proj.location}}</p> </li>
+         <li><p >{{proj.team}}</p></li>
+         <li><p >{{proj.location}}</p> </li>
          <li><p >{{proj.startDate}}</p> </li>
-         <li><p >{{Tasks.end}}</p> </li>
+         <li><p >{{proj.endDate}}</p> </li>
       </ul> 
         
 </div >
@@ -28,7 +28,8 @@
         <table class="table_dark">
   <tr>
     <th>Team</th>
-    <th>Time</th>
+    <th>Start</th>
+    <th>End</th>
     <th>Duratioon</th>
     <th>Notes</th>
     </tr>
@@ -36,6 +37,7 @@
     <td>{{task.name}}</td>
     <td>{{task.start}}</td>
     <td>{{task.end}}</td>
+    <td>{{task.duration}}</td>
     <td>{{task.description}}</td>
     </tr>
   </table>
@@ -86,7 +88,7 @@ import moment from 'moment';
                         description: doc.data().description,
                         location: doc.data().location,
                         stdate: doc.data().stdate,
-                        anddate: doc.data().anddate,
+                        endDate:  moment(doc.data().endDate.seconds).format("YYYY MM DD HH:mm"),
                         Tasks: doc.data().Tasks,
                         startDate: moment(doc.data().startDate.seconds).format("YYYY MM DD HH:mm"),
                         
@@ -262,15 +264,15 @@ color: #19191A;
 }
 .teamtxt1{
   position: relative;
- right: 7em;
+ right: 6.5em;
  bottom: 9.5em;
 font-family: Montserrat;
 font-style: normal;
-
+width: 10em;
 font-size: 16px;
 line-height: 24px;
 /* identical to box height, or 150% */
-
+  text-align: left;
 letter-spacing: 0.04em;
 
 }

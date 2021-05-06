@@ -1,47 +1,30 @@
 <template>
     <div class="maain" >
+       <p class="Ptext">Teams</p>
         <div class="maaain">
-      <p class="text1">Teams</p>
-      <input type="text" class="tfind" placeholder="       Search team">
+     
       <button type="submit" class="button1"  @click="showModal = true">Add team</button>
-      <div>
-        <table class="teamlist1">
-             <tr>
-              <td>
-                <p class="name9">Team name</p>
-              </td>
-              <td >
-                <p class="name4">Project</p>
-              </td>
-              <td>
-                <p class="name5">Members</p>
-              </td>
-               <td>
-                <p class="name91">Status</p>
-              </td>
-              
-            
-                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-              
-            </tr>
-        </table>
-        <div class="line"></div>
-           <table class="teamlist" >
- <tr c v-for="team in Teams" :key="team.key">
-                        <td ><p >{{ team.name }}</p></td>
-                        <td ><p >{{ team.Members }}</p></td>
-                        <td ><p>{{ team.phone }}</p></td>
-                         <td ><p >{{ team.true }}</p></td>
-                        <td >
-                            
-                          <p > <button class="butt1" @click.prevent="RoutTo(team.key)">
+      <div class="lisst">
+        <table class="table_dark">
+  <tr>
+    <th>Team name</th>
+    <th>Project</th>
+    <th>Members</th>
+    <th>Status</th>
+    <th></th>
+    </tr>
+   <tr   c v-for="team in Teams" :key="team.key">
+    <td><p >{{ team.name }}</p></td>
+    <td ><p >Bear</p></td>
+    <td ><p>{{ membName }}</p></td>
+    <td ><p >{{ team.Status }}</p></td>
+    <td><button class="butt1" @click.prevent="RoutTo(team.key)">
                     About
-                  </button></p>
-                            
-                        </td>
- </tr>
-        </table>
-      </div>
+                  </button></td>
+    </tr>
+    
+  </table>
+  </div>
        <transition name="fade" appear>
   <div class="modal-overlay" v-if="showModal" @click="showModal = false"></div>
  </transition>
@@ -76,12 +59,26 @@
         data() {
             return {
                  showModal: false,
-                  Teams: [],
-                  Members: [],
-               
+                 
+      Teams: [],
+      team: {},
+      
+      teamName: null,
+      membName: [],
+      projects: [],
+      projectId:[],
+      project:{
+
+      },
+      membersId: [],
+      members: [],
+      member:{
+
+      }
             }
-        },
-          created() {
+        }, 
+      /*   created() {
+              
             db.collection('Team').onSnapshot((snapshotChange) => {
                 this.Teams = [];
                 snapshotChange.forEach((doc) => {
@@ -89,26 +86,70 @@
                         key: doc.id,
                         name: doc.data().name,
                         Members: doc.data().Members
-                        
-                    })
-                });
-            }),
-            db.collection('Members').onSnapshot((snapshotChange) => {
-                this.Members = [];
-                snapshotChange.forEach((doc) => {
-                    this.Members.push({
-                        key: doc.id,
-                        name: doc.data().name,
-                        
                     })
                 });
             })
+        }, */
+         created() {
+              
+         
+      db.collection("Team")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+           console.log("Team Data", doc.data());
+        this.membersId = doc.data().Members;
+        this.teamName = doc.data().name
+        this.Teams.push({
+                        key: doc.id,
+                        name: doc.data().name,
+                        Members: doc.data().Members,
+                        Status: doc.data().Status
+                    })
+        });
+    }).finally(() => {
+        this.membersId.forEach((a) => {
+          db.collection("Members")
+            .doc(a)
+            .get()
+            .then((data) => {
+              this.members.push({
+                  key: data.id,
+                  name: data.data().name,
+             } );
+             this.membName = data.data().name
+            });
+            
+        });
+      });
+       db.collection("Team")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+           console.log("Team Data", doc.data());
+       this.projectId = doc.data().Projects;
+        });
+    }).finally(() => {
+        this.projectId.forEach((a) => {
+          db.collection("Projects")
+            .doc(a)
+            .get()
+            .then((data) => {
+              this.projects.push({
+                  key: data.id,
+                  name: data.data().name,
+             } );
+            });
+        });
+      });
+
         },
+         
         
         methods: {
             onFormSubmit(event) {
                 event.preventDefault()
-                db.collection('teams').add(this.team).then(() => {
+                db.collection('Team').add(this.team).then(() => {
                     alert("Team successfully created!");
                     this.team.name = ''
                     this.team.email = ''
@@ -144,6 +185,102 @@
 
 <style lang="css" scoped>
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.table_dark {
+  position: relative;
+
+  width: 99%;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  margin: 5px;
+}
+.table_dark th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 1.4%;
+  font-family: Montserrat;
+}
+.table_dark td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 21px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+font-weight: 100;
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+   padding: 1.5% 1.4%;
+}
+.table_dark tr:last-child td {
+  border-bottom: none;
+}
+.table_dark td:last-child {
+  border-right: none;
+}
+.table_dark tr:hover td {
+  text-decoration: underline;
+}
+.table_dark2 {
+  position: relative;
+  width: 99%;
+  top: 3em;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  
+  margin: 5px;
+}
+.table_dark2 th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 1.4%;
+  font-family: Montserrat;
+}
+.lisst{
+  padding-top: 5%;
+}
+.Ptext {
+  position: absolute;
+  left: 1em;
+
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 56px;
+  /* identical to box height, or 156% */
+
+  letter-spacing: 0.04em;
+
+  /* Grey/very dark */
+
+  color: #4c4c4d;
+}
 .teamlist {
   position: relative;
   max-height: 40em;
@@ -328,7 +465,7 @@ font-weight: 500;
   width: 10%;
   height: 5%;
   left: 87%;
-  bottom: 83.8%;
+  bottom: 87.8%;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;

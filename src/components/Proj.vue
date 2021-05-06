@@ -7,53 +7,25 @@
         Add project
       </button>
       <div>
-        <table class="teamlist1">
-             <tr>
-              <td class="td3">
-                <p class="name9">Member name</p>
-              </td>
-              <td class="td3">
-                <p class="name9">Role</p>
-              </td>
-              <td class="td3">
-                <p class="name9">Payment</p>
-              </td>
-               <td class="td3">
-                <p class="name9">Status</p>
-              </td>
-              
-            
-                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-        
-            </tr>
-       </table>
-        <div class="line"></div>
-        <keep-alive>
-          <table class="teamlist">
-            <tr c v-for="proj in Projects" :key="proj.key">
-              <td class="td">
-                <p class="name">{{ proj.name }}</p>
-              </td>
-              <td class="td">
-                <p class="name1">{{ proj.team }}</p>
-              </td>
-              <td class="td">
-                <p class="name2">{{ proj.location }}</p>
-              </td>
-               <td class="td">
-                <p class="name8">{{ proj.status}}</p>
-              </td>
-              <td class="td">
-                <p class="name3">
-                  <button class="butt1" @click.prevent="RoutTo(proj.key)">
+         <table class="table_dark2">
+   <tr>
+    <th>Name</th>
+    <th>Team</th>
+    <th>Started</th>
+    <th>Status</th>
+    <th></th>
+    </tr>
+   <tr  c v-for="proj in Projects" :key="proj.key"  >
+    <td>{{proj.name}}</td>
+    <td>{{ proj.team}}</td>
+    <td>{{ proj.location}}</td>
+    <td>{{proj.status}}</td>
+     <td> <button class="butt1" @click.prevent="RoutTo(proj.key)">
                     About
-                  </button>
-                </p>
-                <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-              </td>
-            </tr>
-          </table>
-        </keep-alive>
+                  </button></td>
+    </tr> 
+
+         </table>
       </div>
     </div>
 
@@ -197,17 +169,18 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.table_dark {
+.table_dark2 {
   position: relative;
-  width: 100%;
+  width: 99%;
+  top: 3em;
   font-family: Montserrat;
   font-size: 14px;
   text-align: left;
   border-collapse: collapse;
-  background: #ffffff;
-  margin: 10px;
+  
+  margin: 5px;
 }
-.table_dark th {
+.table_dark2 th {
  font-style: normal;
 font-weight: 600;
 font-size: 16px;
@@ -219,31 +192,31 @@ letter-spacing: 0.04em;
 /* Black/light */
 
 color: #19191A;
-  border-bottom: 1px solid #000000;
-  padding: 12px 5em;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 1.4%;
   font-family: Montserrat;
 }
-.table_dark td {
+.table_dark2 td {
  font-weight: 600;
 font-size: 16px;
-line-height: 28px;
+line-height: 21px;
 /* identical to box height, or 175% */
 
 letter-spacing: 0.04em;
-
+font-weight: 100;
 /* Black/light */
 
 color: #19191A;
-  border-bottom: 1px solid #000000;
-  padding: 20px 5em;
+  border-bottom: 1px solid #CACBCC;
+   padding: 1.5% 1.4%;
 }
-.table_dark tr:last-child td {
+.table_dark2 tr:last-child td {
   border-bottom: none;
 }
-.table_dark td:last-child {
+.table_dark2 td:last-child {
   border-right: none;
 }
-.table_dark tr:hover td {
+.table_dark2 tr:hover td {
   text-decoration: underline;
 }
 

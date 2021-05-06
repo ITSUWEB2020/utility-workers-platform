@@ -1,38 +1,50 @@
 <template>
-  <div class="maain">
-    <div c v-for="team in Teams" :key="team.key">
-      <p class="Tname">{{ team.name }}</p>
+  <div class="maain" >
+    <div>
+      <p class="Tname">{{ teamName }}</p>
       <div class="maaain">
         <button type="submit" class="button1" @click="showModal = true">
           Add project
         </button>
-        <table class="teamlist1">
-          <tr>
-            <td class="td3">
-              <p class="name9">Project name</p>
-            </td>
-            <td class="td3">
-              <p class="name9">Team</p>
-            </td>
-            <td class="td3">
-              <p class="name9">Location</p>
-            </td>
-            <td class="td3">
-              <p class="name9">Status</p>
-            </td>
-
-            <!-- <p class="name3"><button class="butt1" @click.prevent="deleteUser(proj.key)" >Delete</button></p> -->
-          </tr>
-        </table>
-        <div class="line"></div>
+            <table class="table_dark2">
+  <tr>
+    <th>Name</th>
+    <th>Team</th>
+    <th>Started</th>
+    <th>Status</th>
+    <th></th>
+    </tr>
+  <tr c v-for="project in projects" :key="project.key"  >
+    <td>{{project.projectName}}</td>
+    <td>{{project.teamName}}</td>
+    <td>{{project.startDate}}</td>
+    <td>{{project.status}}</td>
+    </tr>
+  </table>
       </div>
-      <div class="main"></div>
+      <div class="main">
+         <table class="table_dark">
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Payment</th>
+    <th>Status</th>
+    </tr>
+  <tr   c v-for="member in members" :key="member.key" >
+    <td>{{member.name}}</td>
+    <td>{{member.role}}</td>
+    <td>${{member.payment}}/hour</td>
+    <td>{{member.status}}</td>
+    </tr>
+  </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { db } from "../main";
+import moment from 'moment';
 
 export default {
   data: function () {
@@ -41,10 +53,20 @@ export default {
 
       Teams: [],
       team: {},
+      
+      teamName: null,
+      projects: [],
+      projectId:[],
+      project:{
 
+      },
       membersId: [],
       members: [],
-      active: false,
+      member:{
+
+      }
+
+
     };
   },
 
@@ -55,6 +77,7 @@ export default {
       .then((doc) => {
         console.log("Team Data", doc.data());
         this.membersId = doc.data().Members;
+        this.teamName = doc.data().name
       })
       .finally(() => {
         this.membersId.forEach((a) => {
@@ -62,7 +85,37 @@ export default {
             .doc(a)
             .get()
             .then((data) => {
-              this.members.push(data.data());
+              this.members.push({
+                  key: data.id,
+                  name: data.data().name,
+                  status: data.data().status,
+                  email: data.data().email,
+                  role: data.data().role,
+                  payment: data.data().payment
+             } );
+            });
+        });
+      });
+ db.collection("Team")
+      .doc(this.$route.params.id)
+      .get()
+      .then((doc) => {
+        console.log("Team Data", doc.data());
+        this.projectId = doc.data().Projects;
+      })
+      .finally(() => {
+        this.projectId.forEach((a) => {
+          db.collection("Projects")
+            .doc(a)
+            .get()
+            .then((data) => {
+              this.projects.push({
+                  key: data.id,
+                  projectName: data.data().projectName,
+                  status: data.data().status,
+                  teamName: data.data().teamName,
+                  startDate: moment(data.data().startDate.seconds).format("YYYY MM DD HH:mm"),
+             } );
             });
         });
       });
@@ -91,6 +144,106 @@ export default {
 
 <style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+.table_dark {
+  position: relative;
+  width: 99%;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  
+  margin: 5px;
+}
+.table_dark th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 1.4%;
+  font-family: Montserrat;
+}
+.table_dark td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 21px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+font-weight: 100;
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+   padding: 1.5% 1.4%;
+}
+.table_dark tr:last-child td {
+  border-bottom: none;
+}
+.table_dark td:last-child {
+  border-right: none;
+}
+.table_dark tr:hover td {
+  text-decoration: underline;
+}
+.table_dark2 {
+  position: relative;
+  width: 99%;
+  top: 3em;
+  font-family: Montserrat;
+  font-size: 14px;
+  text-align: left;
+  border-collapse: collapse;
+  
+  margin: 5px;
+}
+.table_dark2 th {
+ font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 28px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+  padding: 1.5% 1.4%;
+  font-family: Montserrat;
+}
+.table_dark2 td {
+ font-weight: 600;
+font-size: 16px;
+line-height: 21px;
+/* identical to box height, or 175% */
+
+letter-spacing: 0.04em;
+font-weight: 100;
+/* Black/light */
+
+color: #19191A;
+  border-bottom: 1px solid #CACBCC;
+   padding: 1.5% 1.4%;
+}
+.table_dark2 tr:last-child td {
+  border-bottom: none;
+}
+.table_dark2 td:last-child {
+  border-right: none;
+}
+.table_dark2 tr:hover td {
+  text-decoration: underline;
+}
+
 .maaain {
   position: absolute;
   width: 96%;
